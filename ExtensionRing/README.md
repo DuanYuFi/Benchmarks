@@ -17,6 +17,7 @@ NTL version: 11.5.1
 
 ## Machine Setup
 
+```
 Cpuinfo Version: 9.0.0
 Vendor ID Raw: GenuineIntel
 Hardware Raw: 
@@ -35,6 +36,7 @@ L2 Cache Size: 16777216
 L2 Cache Line Size: 256
 L2 Cache Associativity: 6
 L3 Cache Size: 34603008
+```
 
 ## Results (10000 muls)
 
