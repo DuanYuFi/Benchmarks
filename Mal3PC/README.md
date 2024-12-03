@@ -45,11 +45,11 @@ with memory 256GB.
 
 These experiments are conducted on optimized programs with parameters `-O -l`.
 
-| Experiment | Protocol           | Network | Time (seconds) | Communication (MB) |
-|------------|--------------------|---------|----------------|--------------------|
-| 8          | Passive            | LAN     | 33.243         | 45468.1            |
-| 9          | SpdzWise + Uss23   | LAN     | 151.25         | 276645             |
-| 10         | Uss23 + CCS24      | LAN     | 202.5          | 46180.1            |
+| Experiment | Protocol           | Network | Time (seconds) | Communication (MB) |  Memory (GB) |
+|------------|--------------------|---------|----------------|--------------------|--------------|
+| 8          | Passive            | LAN     | 33.243         | 45468.1            | 18.08        |
+| 9          | SpdzWise + Uss23   | LAN     | 151.25         | 276645             | 78.66        |
+| 10         | Uss23 + CCS24      | LAN     | 202.5          | 46180.1            | 210.86       |
 
 ### Experiment 1
 
@@ -312,6 +312,34 @@ Consider adding the following at the beginning of your code:
 Command line: ./replicated-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose
 ```
 
+Memory costs:
+
+```
+Command being timed: "taskset -c 0-31 ./replicated-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose"
+        User time (seconds): 551.00
+        System time (seconds): 96.73
+        Percent of CPU this job got: 1502%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:43.09
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 18960060
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 7480012
+        Voluntary context switches: 1952339
+        Involuntary context switches: 316865
+        Swaps: 0
+        File system inputs: 0
+        File system outputs: 34032
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+```
+
 ### Experiment 9
 
 SpdzWise + Uss23, 32 threads, LAN, three machines.
@@ -346,6 +374,35 @@ Consider adding the following at the beginning of your code:
 Command line: ./sw-uss23-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose
 ```
 
+Memory costs:
+
+```
+Command being timed: "taskset -c 0-31 ./sw-uss23-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose"
+        User time (seconds): 2093.53
+        System time (seconds): 712.15
+        Percent of CPU this job got: 1609%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 2:54.29
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 82486048
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 1
+        Minor (reclaiming a frame) page faults: 87413549
+        Voluntary context switches: 11127355
+        Involuntary context switches: 601867
+        Swaps: 0
+        File system inputs: 0
+        File system outputs: 108272
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+```
+
+
 ### Experiment 10
 
 Uss23 + CCS24, 32 threads, LAN, three machines.
@@ -378,4 +435,32 @@ Consider adding the following at the beginning of your code:
 	program.use_trunc_pr = True
 	program.use_split(3)
 Command line: ./mal3pc-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose
+```
+
+Memory costs:
+
+```
+Command being timed: "taskset -c 0-31 ./mal3pc-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose"
+        User time (seconds): 4679.14
+        System time (seconds): 411.31
+        Percent of CPU this job got: 2309%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 3:40.44
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 221104312
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 67547729
+        Voluntary context switches: 3602408
+        Involuntary context switches: 1282561
+        Swaps: 0
+        File system inputs: 0
+        File system outputs: 34032
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
 ```
