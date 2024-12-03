@@ -40,6 +40,17 @@ with memory 256GB.
 | 6          | Passive            | WAN     | 4889.03        | 45483              |
 | 7          | Passive            | LAN     | 50.0017        | 45483              |
 
+
+### Summary of Experiments 2-7
+
+These experiments are conducted on optimized programs with parameters `-O -l`.
+
+| Experiment | Protocol           | Network | Time (seconds) | Communication (MB) |
+|------------|--------------------|---------|----------------|--------------------|
+| 8          | Passive            | LAN     | 33.243         | 45468.1            |
+| 9          | SpdzWise + Uss23   | LAN     | 151.25         | 276645             |
+| 10         | Uss23 + CCS24      | LAN     | 202.5          | 46180.1            |
+
 ### Experiment 1
 
 Uss23 + CCS24, single thread, LAN, single machine.
@@ -252,4 +263,119 @@ Consider adding the following at the beginning of your code:
 	program.use_trunc_pr = True
 	program.use_split(3)
 Command line: ./replicated-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose
+```
+
+### Experiment 8
+
+**From Exp. 8, the program we ran are compiled by parameter `-O -l`** 
+
+Passive, 32 threads, LAN, three machines.
+
+**Command:**
+
+`taskset -c 0-31 ./replicated-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose`
+
+LAN on three machines.
+
+**Results:**
+
+```
+Using statistical security parameter 40
+Trying to run 64-bit computation
+Starting timer 1 at 0 (0 MB, 0 rounds) after 4.3237e-05
+Stopped timer 1 at 30.5246 (15087.4 MB, 371518 rounds)
+guess 249
+Compiler: ./compile.py tf EzPC/Athos/Networks/ResNet/graphDef.bin 32 -O -l -R 64
+Main thread communication:
+Passing around 0.484032 MB in 84 rounds, taking 0.0200535 seconds
+Receiving directly 2.40026 MB in 1 rounds, taking 0.0108977 seconds
+Sending directly 208.379 MB in 265 rounds, taking 0.236749 seconds
+
+33 threads spent a total of 547.202 seconds (5447.49 MB, 363580 rounds) on the online phase, 295.434 seconds (9845.85 MB, 8204 rounds) on the preprocessing/offline phase, and 245.075 seconds idling.
+Communication details (rounds in parallel threads counted double):
+Passing around 5241.51 MB in 363316 rounds, taking 157.448 seconds
+Receiving directly 9845.85 MB in 4102 rounds, taking 76.5326 seconds
+Sending directly 10051.8 MB in 4366 rounds, taking 24.6481 seconds
+CPU time = 651.74 (overall core time)
+The following benchmarks are including preprocessing (offline phase).
+Time = 33.243 seconds 
+Time1 = 30.5246 seconds (15087.4 MB, 371518 rounds)
+Data sent = 15293.3 MB in ~371784 rounds (party 0 only; rounds counted double due to multi-threading)
+Global data sent = 45468.1 MB (all parties)
+Actual cost of program:
+  Type int
+    1224714508           Bits
+This program might benefit from some protocol options.
+Consider adding the following at the beginning of your code:
+	program.use_trunc_pr = True
+	program.use_split(3)
+Command line: ./replicated-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose
+```
+
+### Experiment 9
+
+SpdzWise + Uss23, 32 threads, LAN, three machines.
+
+**Command:**
+
+`taskset -c 0-31 ./sw-uss23-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config`
+
+LAN on three machines.
+
+**Results:**
+
+```
+33 threads spent a total of 1649.48 seconds (17690.8 MB, 1546738 rounds) on the online phase, 2180.72 seconds (74748.3 MB, 221508 rounds) on the preprocessing/offline phase, and 1116.41 seconds idling.
+Communication details (rounds in parallel threads counted double):
+Broadcasting 12.7332 MB in 467402 rounds, taking 162.356 seconds
+Passing around 86718.4 MB in 1260506 rounds, taking 997.561 seconds
+Receiving directly 5357.07 MB in 20427 rounds, taking 51.5044 seconds
+Sending directly 5695.66 MB in 20670 rounds, taking 17.9367 seconds
+CPU time = 2848.44 (overall core time)
+The following benchmarks are including preprocessing (offline phase).
+Time = 151.25 seconds 
+Time1 = 141.069 seconds (91768.8 MB, 1765896 rounds)
+Data sent = 92439.5 MB in ~1769005 rounds (party 0 only; rounds counted double due to multi-threading)
+Global data sent = 276645 MB (all parties)
+Actual cost of program:
+  Type int
+    1224714508           Bits
+This program might benefit from some protocol options.
+Consider adding the following at the beginning of your code:
+	program.use_split(3)
+Command line: ./sw-uss23-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose
+```
+
+### Experiment 10
+
+Uss23 + CCS24, 32 threads, LAN, three machines.
+
+**Command:**
+
+`taskset -c 0-31 ./mal3pc-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config`
+
+LAN on three machines.
+
+**Results:**
+
+```
+33 threads spent a total of 4333.66 seconds (5647.43 MB, 366140 rounds) on the online phase, 413.642 seconds (9845.85 MB, 8204 rounds) on the preprocessing/offline phase, and 1191.18 seconds idling.
+Communication details (rounds in parallel threads counted double):
+Passing around 5478.87 MB in 366536 rounds, taking 222.123 seconds
+Receiving directly 9845.85 MB in 4102 rounds, taking 106.192 seconds
+Sending directly 10051.8 MB in 4366 rounds, taking 21.8714 seconds
+CPU time = 5094.18 (overall core time)
+The following benchmarks are including preprocessing (offline phase).
+Time = 202.5 seconds 
+Time1 = 157.242 seconds (15287.3 MB, 374078 rounds)
+Data sent = 15530.7 MB in ~375004 rounds (party 0 only; rounds counted double due to multi-threading)
+Global data sent = 46180.1 MB (all parties)
+Actual cost of program:
+  Type int
+    1224714508           Bits
+This program might benefit from some protocol options.
+Consider adding the following at the beginning of your code:
+	program.use_trunc_pr = True
+	program.use_split(3)
+Command line: ./mal3pc-ring-party.x 0 tf-EzPC_Athos_Networks_ResNet_graphDef.bin-32 -B 4 -b 300000 -bb 640000 -ms 100 -tn 32 -ip mpspdz-config --verbose
 ```
