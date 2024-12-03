@@ -41,7 +41,7 @@ with memory 256GB.
 | 7          | Passive            | LAN     | 50.0017        | 45483              |
 
 
-### Summary of Experiments 2-7
+### Summary of Experiments 8-10
 
 These experiments are conducted on optimized programs with parameters `-O -l`.
 
