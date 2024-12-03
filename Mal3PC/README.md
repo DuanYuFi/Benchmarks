@@ -29,6 +29,17 @@ with memory 256GB.
 
 ## Experiments
 
+### Summary of Experiments 2-7
+
+| Experiment | Protocol           | Network | Time (seconds) | Communication (MB) |
+|------------|--------------------|---------|----------------|--------------------|
+| 2          | SpdzWise + Uss23   | LAN     | 233.023        | 289123             |
+| 3          | Uss23 + CCS24      | LAN     | 243.792        | 46195.9            |
+| 4          | SpdzWise + Uss23   | WAN     | 20282.4        | 289123             |
+| 5          | Uss23 + CCS24      | WAN     | 5083.52        | 46195.9            |
+| 6          | Passive            | WAN     | 4889.03        | 45483              |
+| 7          | Passive            | LAN     | 50.0017        | 45483              |
+
 ### Experiment 1
 
 Uss23 + CCS24, single thread, LAN, single machine.
